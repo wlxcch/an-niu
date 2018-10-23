@@ -30,14 +30,48 @@
   top:0;
   left:0;
   opacity:0;
+  cursor:pointer;
+  /* 变成小手显示 */
+  z-index:1;
+  /* 从写代码的顺序上看，（点击图片上传时），鼠标点击的时候点击的是.mask
+  也就是----编辑，用z-index:1;使得位置处于最上面 
+  也可以让编辑和input的file一层互换*/
+}
+.mask{
+  position:absolute;
+  display:none;
+  top:0;
+  left:0;
+  border:1px solid red;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+  width:100%;
+  color:white;
+  cursor:pointer;
+}
+.imagePicker:hover .mask{
+  display:flex;
 }
   </style>
 </head>
 <body>
 <div class="imagePicker">
   <img  src="https://photo.16pic.com/00/50/63/16pic_5063889_b.jpg" >
-  <input type="file">
-  
+  <input id="imageInput" type="file"> 
+  <div class="mask">编辑</div>
 </div>
+<script>
+  imageInput.onchange=function(e){
+    let formData=new FormData()
+    formData.append('xxx',e.target.files[0])
+        $.ajax({
+        url: 'xxx',
+        data: formData,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+    });
+</script>
 </body>
 </html>

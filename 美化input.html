@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <script src="//at.alicdn.com/t/font_882811_owkkdayc9w.js"></script>
+  <style type="text/css">
+    .icon {
+       width: 20px;; height: 20px;
+       vertical-align: -0.15em;
+       fill: #b8b8b8;
+       overflow: hidden;
+    }
+.icon:hover{
+  fill: #3388ff;
+  /* 浮上去鼠标变成小手 */
+  cursor: pointer;
+}
+*{
+  margin:0;
+  padding:0;
+}
+*{
+  box-sizing:border-box;
+}
+*::bofore,*::after{
+  box-sizing:border-box;
+}
+
+ul,ol{
+  list-style:none;
+}
+/* 第一种body的border占满屏显示方法： */
+/* body{
+  border:1px solid red;
+  height:100%;
+}
+html{
+  height:100%;
+} */
+
+/* 第二种这种方法不能实现，如果改成最小高度 */
+/* body{
+  border:1px solid red;
+  min-height:100%;
+}
+html{
+   min-height:100%;
+} */
+
+/* 第三种就可以实现如果，html不加最小宽度，这是最好的选择，可以兼容IE */
+/* * body{
+  border:1px solid red;
+  min-height:100%;
+}
+html{
+  height:100%;} */
+
+/* 如果不兼容IE。就可以这样写 */
+body{
+  border:1px solid red;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  
+}
+.wrapper{
+  /* border:1px solid green; */
+  position:relative;
+  display:flex;
+}
+.suggestion{
+    position:absolute;
+    top:100%;
+    left:0;
+    display:none;
+}
+.suggestion.active{
+  display:block;
+}
+.inputWrapper{
+   position:relative;
+/*   去掉x和yinputWrapper与input相对定位的空隙 display:inline-block; */
+   display:inline-block;
+}
+/* nputWrapper后面的button */
+.inputWrapper +button{
+    background:#3388ff;
+    padding:0 10px;
+    font-size：14px;
+    color:white;
+}
+.inputWrapper +button:focus{
+    outline:none;
+}
+.inputWrapper +button:hover{
+    box-shadow:1px 1px 1px 0 rgba(0,0,00.2);
+    background:#317ef3;
+}
+.inputWrapper input[type=text]{
+  border:1px solid #b8b8b8;
+  width:540px;
+  height:35px;
+ line-height:35px;
+  /* 利用padding内边距调节光标的位置 */
+  padding-left:8px;
+/*   光标的大小和字体的大小有关系，但不相等，途中光标高度是17px,通过调节字体大小调节符合高度的光标高度,字体大小为15px */
+  font-size:15px;
+}
+/* 鼠标点上去的时候input变蓝色 */
+.inputWrapper input[type=text]:focus{
+  /* 先去掉默认input点上去变得颜色 */
+   outline:none;
+   border-color:#3388ff;
+}
+.floatDIV{
+  position:absolute;
+  right:0;
+  top:0;
+  border:1px solid red; 
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-right:10px;
+}
+.split-line{
+  width:0;
+  height:16px;
+  border-left:1px solid; 
+  margin:0 10px;
+  color:#b8b8b8;
+}
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <span class="inputWrapper">
+      <!-- 关闭浏览器默认的提示autocomplete="off" -->
+       <input id="keyword" type="text" autocomplete="off">
+       <span class="floatDIV">
+         <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-cammer"></use>
+         </svg>
+         <span class="split-line"></span>
+         <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-microphoneicon"></use>
+         </svg>    
+      </span>
+  </span>
+  <button>百度一下</button>
+  <ul id="suggestion" class="suggestion">
+    <li>选项1</li>
+    <li>选项2</li>
+    <li>选项3</li>
+    <li>选项4</li>
+    <li>选项5</li>
+  </ul>
+</div>
+<!-- 当在input标签中输入搜索内容时，出现提示框，通过给提示的内容改变class，添加去除active -->
+<!-- js内容一般在后面加载，否则显示没有定义 -->
+<script>
+    keyword.oninput=function(e){
+        var value=keyword.value
+        if(value){
+            suggestion.classList.add('active')
+        }else{
+            suggestion.classList.remove('active')
+        }
+    }
+    </script>
+</body>
+</html>
